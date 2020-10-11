@@ -1,0 +1,27 @@
+eureka:
+  hostname: localhost:8080
+  instance:
+    metadata-map:
+      key: val
+    lease-renewal-interval-in-seconds: 10
+  #      实例ID 默认spring.application.name
+#    instance-id: eureka-client-id1
+  #    eureka server访问url
+#    status-page-url: https://${eureka.hostname}/info
+#    health-check-url: https://${eureka.hostname}/health
+#    home-page-url: https://${eureka.hostname}/
+  #    HTTPS
+#    non-secure-port-enabled: false
+#    secure-port-enabled: true
+#    status-page-url: /custom/info
+#    health-check-url-path: /custom/health
+  client:
+    refresh:
+      enable: true
+    healthcheck:
+      enabled: false
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+spring:
+  application:
+    name: eureka-client1
