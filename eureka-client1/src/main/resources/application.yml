@@ -2,6 +2,8 @@ eureka:
   hostname: localhost:8080
   instance:
     metadata-map:
+#      设置集群名称
+      cluster: turbine
       key: val
     lease-renewal-interval-in-seconds: 10
   #      实例ID 默认spring.application.name
@@ -26,8 +28,16 @@ spring:
   application:
     name: eureka-client1
 #暴露端点，Hystrix Dashboard 才能访问http://localhost:8080/actuator/hystrix.stream
+#http://localhost:8080/turbine.stream
+#http://localhost:8080/turbine.stream?cluster=turbine
 management:
   endpoints:
     web:
       exposure:
         include: '*'
+turbine:
+  combine-host-port: true
+  aggregator:
+    cluster-config: turbine
+  cluster-name-expression: metadata['cluster']
+  app-config: eureka-client1
