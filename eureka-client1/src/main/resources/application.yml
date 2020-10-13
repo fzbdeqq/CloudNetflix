@@ -25,3 +25,9 @@ eureka:
 spring:
   application:
     name: eureka-client1
+#暴露端点，Hystrix Dashboard 才能访问http://localhost:8080/actuator/hystrix.stream
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

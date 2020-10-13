@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Random;
 import java.util.UUID;
 
 /**
@@ -22,9 +23,6 @@ import java.util.UUID;
 @RestController
 @Slf4j
 public class HomeController {
-    @Qualifier("eurekaClient")
-    @Autowired
-    private EurekaClient discoveryClient;
 
 //THREAD(线程隔离）：使用该方式，HystrixCommand将会在单独的线程上执行，并发请求受线程池中线程数量的限制。
 //SEMAPHORE（信号量隔离）：使用该方式，HystrixCommand将会在调用线程上执行，开销相对较小，并发请求受到信号量个数的限制。
@@ -32,14 +30,13 @@ public class HomeController {
     @HystrixCommand(fallbackMethod = "defaultStores",commandProperties = {
 //            @HystrixProperty(name = "execution.isolation.strategy",value = "SEMAPHORE"),
 //            @HystrixProperty(name = "execution.isolation.strategy",value = "THREAD"),
-            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds",value = "1200")
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds",value = "1000")
     })
     public String home() throws InterruptedException {
 
 //        HystrixCommandProperties
-        Thread.sleep(1500);
-//        InstanceInfo instanceInfo=discoveryClient.getNextServerFromEureka("STORES",false);
-//        System.out.println(instanceInfo.getHomePageUrl());
+        int sleep=new Random().nextInt(1500);
+        Thread.sleep(sleep);
         log.info("home");
         return "Hello world";
     }
