@@ -41,3 +41,22 @@ turbine:
     cluster-config: turbine
   cluster-name-expression: metadata['cluster']
   app-config: eureka-client1
+
+say-hello:
+  ribbon:
+    eureka:
+      enabled: false
+    listOfServers: localhost:8090,localhost:9092,localhost:9999
+    ServerListRefreshInterval: 15000
+
+    NIWSServerListClassName: com.netflix.loadbalancer.ConfigurationBasedServerList
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule
+user:
+  ribbon:
+    NIWSServerListClassName: com.netflix.loadbalancer.ConfigurationBasedServerList
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule
+
+#在Ribbon禁用Eureka
+ribbon:
+  eureka:
+    enabled: false
