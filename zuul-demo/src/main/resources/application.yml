@@ -15,17 +15,23 @@ zuul:
     users:
       path: /ec1/**
       serviceId: EUREKA-CLIENT1
-#      stripPrefix: false
+      sensitive-headers:
+#     设置敏感头部信息为空
+#      sensitive-headers: Cookie,Set-Cookie,Authorization
+      #cookies为下游服务带来一些问题,sensitive-headers默认值
+
+    #      stripPrefix: false
 #      http://localhost:8888/ec1/home
 #请求/myusers 转发到 users_service服务，path可以匹配任何风格,/myusers/*匹配一层，/myusers/**匹配多层
 #      url: http://localhost:8080/
 #简单Url路由不会被HystrixCommand执行，也不会会用robbin进行负载均衡
     rs:
       path: /rs/**
+
 #      http://localhost:8888/rs/greeting
 #      serviceId: rs
-    legacy:
-      path: /**
+#    legacy:
+#      path: /**
 #      没有匹配到路由，直接匹配
 
 hystrix:
@@ -46,9 +52,22 @@ EUREKA-CLIENT1:
     MaxConnectionsPerHost: 100
 #rs没有注册到eureka
 ribbon:
+  restclient:
+    enabled: true
+#    使用apache http client代替ribbon
   eureka:
     enabled: false
+#  okhttp:
+#    enabled: true
+#    使用apache http client代替ribbon
 
 rs:
   ribbon:
     listOfServers: localhost:8090,localhost:9092,localhost:9999
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+#        将所有的端点都暴露出来
