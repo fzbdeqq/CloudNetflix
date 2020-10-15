@@ -15,6 +15,7 @@ zuul:
     users:
       path: /ec1/**
       serviceId: EUREKA-CLIENT1
+#      stripPrefix: false
 #      http://localhost:8888/ec1/home
 #请求/myusers 转发到 users_service服务，path可以匹配任何风格,/myusers/*匹配一层，/myusers/**匹配多层
 #      url: http://localhost:8080/
@@ -23,6 +24,9 @@ zuul:
       path: /rs/**
 #      http://localhost:8888/rs/greeting
 #      serviceId: rs
+    legacy:
+      path: /**
+#      没有匹配到路由，直接匹配
 
 hystrix:
   command:
