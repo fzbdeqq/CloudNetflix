@@ -1,0 +1,50 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: zuul-demo
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+zuul:
+  ignored-services: '*'
+  routes:
+#    users: /myusers/**
+#  除了users,其他全部忽略，请求/myusers/100 转发到 /users/100
+    users:
+      path: /ec1/**
+      serviceId: EUREKA-CLIENT1
+#      http://localhost:8888/ec1/home
+#请求/myusers 转发到 users_service服务，path可以匹配任何风格,/myusers/*匹配一层，/myusers/**匹配多层
+#      url: http://localhost:8080/
+#简单Url路由不会被HystrixCommand执行，也不会会用robbin进行负载均衡
+    rs:
+      path: /rs/**
+#      http://localhost:8888/rs/greeting
+#      serviceId: rs
+
+hystrix:
+  command:
+    EUREKA-CLIENT1:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
+
+EUREKA-CLIENT1:
+  ribbon:
+    NIWSServerListClassName: com.netflix.loadbalancer.ConfigurationBasedServerList
+    listOfServers: http://localhost:8080
+    ConnectTimeout: 5000
+    ReadTimeout: 5000
+    MaxTotalHttpConnections: 500
+    MaxConnectionsPerHost: 100
+#rs没有注册到eureka
+ribbon:
+  eureka:
+    enabled: false
+
+rs:
+  ribbon:
+    listOfServers: localhost:8090,localhost:9092,localhost:9999
