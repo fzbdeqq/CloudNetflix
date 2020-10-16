@@ -23,7 +23,8 @@ public class LogInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String uuid=UUID.randomUUID().toString();
         MDC.put(traceId, uuid);
-        log.info("preHandle:{}",uuid);
+        request.getParameterMap().entrySet().stream().forEach(item-> System.out.println(item.getValue()+":"+item.getValue()));
+        log.info("request：{},param:{}",request.getRequestURI());
         return true;
     }
 

@@ -37,6 +37,7 @@ zuul:
       path: /upload/**
       url: forward:/upload
   force-original-query-string-encoding: true
+  decode-url: true
 #    legacy:
 #      path: /**
 #      没有匹配到路由，直接匹配
