@@ -3,5 +3,5 @@ spring:
     name: say-hello
 server:
 #  port: 8090
-#  port: 9092
-  port: 9999
+  port: 9092
+#  port: 9999

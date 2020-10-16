@@ -9,9 +9,9 @@ import org.springframework.context.annotation.Configuration;
  * @Description:
  * @Date 2020/10/15 17:28
  */
-@Configuration
+//@Configuration
 public class ApplicationConfiguration {
-    @Bean
+//    @Bean
     public PatternServiceRouteMapper serviceRouteMapper(){
 //       serviceId : myusers-v1 —— route:/v1/myusers/**
         return new PatternServiceRouteMapper("(?<name>^.+)-(?<version>v.+$)",

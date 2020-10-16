@@ -27,9 +27,15 @@ zuul:
 #简单Url路由不会被HystrixCommand执行，也不会会用robbin进行负载均衡
     rs:
       path: /rs/**
-
 #      http://localhost:8888/rs/greeting
 #      serviceId: rs
+    forwardLocal:
+      path: /forwardLocal/**
+      url: forward:/home
+#      跳转到本地，http://localhost:8888/forwardLocal/home,home为path参数，controller没有参数则没有home
+    upload:
+      path: /upload/**
+      url: forward:/upload
 #    legacy:
 #      path: /**
 #      没有匹配到路由，直接匹配
@@ -50,13 +56,14 @@ EUREKA-CLIENT1:
     ReadTimeout: 5000
     MaxTotalHttpConnections: 500
     MaxConnectionsPerHost: 100
-#rs没有注册到eureka
+
 ribbon:
   restclient:
     enabled: true
 #    使用apache http client代替ribbon
   eureka:
     enabled: false
+#rs没有注册到eureka
 #  okhttp:
 #    enabled: true
 #    使用apache http client代替ribbon
