@@ -32,17 +32,17 @@ public class HomeController {
 //            @HystrixProperty(name = "execution.isolation.strategy",value = "THREAD"),
             @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds",value = "1000")
     })
-    public String home() throws InterruptedException {
+    public String home(String name) throws InterruptedException {
 
 //        HystrixCommandProperties
         int sleep=new Random().nextInt(1500);
         Thread.sleep(sleep);
-        log.info("home");
-        return "Hello world";
+        log.info("home:{}",name);
+        return "Hello world"+name;
     }
 
-    public String defaultStores(){
-        log.info("defaultStores");
-        return "熔断打开";
+    public String defaultStores(String name){
+        log.info("defaultStores:{}",name);
+        return "熔断打开"+name;
     }
 }

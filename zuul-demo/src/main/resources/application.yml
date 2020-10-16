@@ -36,6 +36,7 @@ zuul:
     upload:
       path: /upload/**
       url: forward:/upload
+  force-original-query-string-encoding: true
 #    legacy:
 #      path: /**
 #      没有匹配到路由，直接匹配
@@ -47,6 +48,11 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 5000
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
 
 EUREKA-CLIENT1:
   ribbon:
@@ -58,6 +64,8 @@ EUREKA-CLIENT1:
     MaxConnectionsPerHost: 100
 
 ribbon:
+  ConnectTimeout: 3000
+  ReadTimeout: 60000
   restclient:
     enabled: true
 #    使用apache http client代替ribbon
