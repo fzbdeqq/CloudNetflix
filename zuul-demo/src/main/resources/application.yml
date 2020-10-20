@@ -48,7 +48,7 @@ hystrix:
       execution:
         isolation:
           thread:
-            timeoutInMilliseconds: 5000
+            timeoutInMilliseconds: 300
     default:
       execution:
         isolation:
@@ -66,7 +66,7 @@ EUREKA-CLIENT1:
 
 ribbon:
   ConnectTimeout: 3000
-  ReadTimeout: 60000
+#  ReadTimeout: 60000
   restclient:
     enabled: true
 #    使用apache http client代替ribbon
