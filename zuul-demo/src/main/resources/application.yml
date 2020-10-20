@@ -8,6 +8,9 @@ eureka:
     service-url:
       defaultZone: http://localhost:8761/eureka/
 zuul:
+  ribbon:
+    eager-load:
+      enabled: true
   ignored-services: '*'
   routes:
 #    users: /myusers/**
@@ -38,6 +41,7 @@ zuul:
       url: forward:/upload
   force-original-query-string-encoding: true
   decode-url: true
+  servlet-path: /zuul
 #    legacy:
 #      path: /**
 #      没有匹配到路由，直接匹配
@@ -48,7 +52,7 @@ hystrix:
       execution:
         isolation:
           thread:
-            timeoutInMilliseconds: 5000
+            timeoutInMilliseconds: 100
     default:
       execution:
         isolation:
