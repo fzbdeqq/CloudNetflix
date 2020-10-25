@@ -14,6 +14,8 @@
         <module>eureka-client1</module>
         <module>ribbon-server</module>
         <module>zuul-demo</module>
+        <module>feign-provider</module>
+        <module>feign-consumer</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
