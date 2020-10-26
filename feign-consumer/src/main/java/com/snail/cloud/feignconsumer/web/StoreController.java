@@ -1,4 +1,4 @@
-package com.snail.cloud.feignconsumer;
+package com.snail.cloud.feignconsumer.web;
 
 import com.snail.cloud.feignconsumer.feignclient.StoreClient;
 import org.springframework.web.bind.annotation.GetMapping;
